@@ -2,12 +2,13 @@ import  { useEffect, useState } from 'react';
 import VideoCallModal from "../../components/VideoCallModal";
 
 interface Companion {
-  id: string;
-  name: string;
-  avatarUrl: string;
-  description?: string;
-  voiceId?: string;
-  metadata?: Record<string, any>;
+    avatar_id: string;
+    name: string;
+    link: string;
+    avatar_image_url?: string;
+    role?: string;
+    voiceId?: string;
+    metadata?: Record<string, any>;
 }
 
 const CompanionsPage: React.FC = () => {
@@ -35,7 +36,12 @@ const CompanionsPage: React.FC = () => {
       }
       
       const data = await response.json();
-      setCompanions(data);
+// Map to Companion[]
+        const companionsList: Companion[] = data
+            .map((item: any) => item.companion)
+            .filter(Boolean); // remove null/undefined
+
+        setCompanions(companionsList);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -53,7 +59,7 @@ const CompanionsPage: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId,
-          companionId: companion.id,
+          companionId: companion.avatar_id,
         }),
       });
 
@@ -140,17 +146,17 @@ const CompanionsPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {companions.map((companion) => (
               <div
-                key={companion.id}
+                key={companion.avatar_id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
                 onClick={() => handleStartCall(companion)}
               >
                 <div className="aspect-w-3 aspect-h-4 bg-gray-200">
                   <img
-                    src={companion.avatarUrl}
+                    src={companion.link || companion.avatar_image_url }
                     alt={companion.name}
                     className="w-full h-64 object-cover"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/placeholder-avatar.png';
+                      (e.target as HTMLImageElement).src ='https://via.placeholder.com/300';
                     }}
                   />
                 </div>
@@ -158,9 +164,9 @@ const CompanionsPage: React.FC = () => {
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {companion.name}
                   </h3>
-                  {companion.description && (
+                  {companion.role && (
                     <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                      {companion.description}
+                      {companion.role}
                     </p>
                   )}
                   {companion.voiceId && (

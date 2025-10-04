@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 
 // Companion type
 interface Companion {
-    id: string;
+    avatar_id: string;
     name: string;
-    avatarUrl: string;
+    link: string;
 }
 
 // Props interface
@@ -178,7 +178,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                 <div className="bg-gray-800 px-6 py-4 flex items-center justify-between border-b border-gray-700">
                     <div className="flex items-center space-x-3">
                         <img
-                            src={companion.avatarUrl}
+                            src={companion.link}
                             alt={companion.name}
                             className="w-12 h-12 rounded-full border-2 border-blue-500"
                         />
@@ -218,7 +218,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
                                 <div className="text-center">
                                     <img
-                                        src={companion.avatarUrl}
+                                        src={companion.link}
                                         alt={companion.name}
                                         className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-500"
                                     />
