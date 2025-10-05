@@ -72,7 +72,7 @@ async def root():
 async def create_room(room_data: RoomCreate):
     """Create a new video room"""
     room_id = str(uuid.uuid4())
-    expires_at = datetime.utcnow() + timedelta(hours=2)
+    expires_at = datetime.now(datetime.timezone.utc) + timedelta(hours=2)
 
     room_info = {
         "roomId": room_id,
@@ -80,7 +80,7 @@ async def create_room(room_data: RoomCreate):
         "userId": room_data.userId,
         "expiresAt": expires_at.isoformat(),
         "status": "active",
-        "createdAt": datetime.utcnow().isoformat()
+        "createdAt": datetime.now(datetime.timezone.utc).isoformat()
     }
 
     active_rooms[room_id] = room_info
@@ -156,7 +156,7 @@ async def send_chat_message(message: ChatMessage):
     return {
         "success": True,
         "messageId": str(uuid.uuid4()),
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(datetime.timezone.utc).isoformat()
     }
 
 @app.post("/api/video/recordings", response_model=RecordingResponse)
