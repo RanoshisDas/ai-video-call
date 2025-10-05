@@ -345,7 +345,7 @@ async def health_check():
     return {
         "status": "healthy",
         "active_rooms": len(active_rooms),
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(datetime.timezone.utc)
     }
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+import { Camera, CameraOff, CircleDot, CircleStop, MessageCircle, Mic, MicOff, Phone } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 // Companion type
@@ -322,7 +323,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                         } text-white`}
                         title={isMicEnabled ? 'Mute' : 'Unmute'}
                     >
-                        <span className="text-2xl">{isMicEnabled ? '🎤' : '🔇'}</span>
+                        <span className="text-2xl">{isMicEnabled ? <Mic/> : <MicOff/>}</span>
                     </button>
 
                     <button
@@ -332,7 +333,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                         } text-white`}
                         title={isCameraEnabled ? 'Turn off camera' : 'Turn on camera'}
                     >
-                        <span className="text-2xl">{isCameraEnabled ? '📹' : '📷'}</span>
+                        <span className="text-2xl">{isCameraEnabled ? <Camera/> : <CameraOff/>}</span>
                     </button>
 
                     <button
@@ -340,7 +341,9 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                         className="p-5 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition-all duration-200 shadow-lg relative"
                         title="Toggle chat"
                     >
-                        <span className="text-2xl">💬</span>
+                        <span className="text-2xl">
+                            <MessageCircle/>
+                        </span>
                         {messages.length > 0 && !showChat && (
                             <span className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full text-xs flex items-center justify-center">
                 {messages.length}
@@ -355,7 +358,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                         } text-white`}
                         title={isRecording ? 'Stop recording' : 'Start recording'}
                     >
-                        <span className="text-2xl">{isRecording ? '⏹️' : '⏺️'}</span>
+                        <span className="text-2xl">{isRecording ? <CircleStop/> : <CircleDot/> }</span>
                     </button>
 
                     <div className="w-px h-12 bg-gray-700 mx-2"></div>
@@ -364,7 +367,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
                         onClick={handleEndCall}
                         className="px-8 py-5 rounded-full bg-red-600 hover:bg-red-700 text-white font-semibold transition-all duration-200 shadow-lg flex items-center space-x-2"
                     >
-                        <span className="text-xl">📞</span>
+                        <span className="text-xl"><Phone/></span>
                         <span>End Call</span>
                     </button>
                 </div>
