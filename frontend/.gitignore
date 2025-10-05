@@ -1,0 +1,28 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js build output
+.next/
+/out/ # If you are exporting a static site
+
+# production build output (e.g., for deployment)
+/dist/
+
+# environment variables
+.env.local
+.env.*.local
+.env
+
+# miscellaneous
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/ # If using WebStorm or other JetBrains IDEs
+.vscode/ # If using VS Code and want to ignore workspace settings
